@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 
 /** chatglm.cn 安卓接口客户端(已验证: 签名/流式/历史/删除/模型切换) */
 public class GlmClient{
+  public static void reset(){/*重置会话缓存:暂空实现,保证编译*/}
  public static final String SECRET="8a1317a7468aa3ad86e997d08f3f31cb";
  public static final String MAIN="65940acff94777010aa6b796";
  public static final String BASE="https://chatglm.cn/chatglm/";
@@ -200,7 +201,7 @@ public class GlmClient{
    }
    JSONArray out=new JSONArray();
    if(list==null)return out;
-   for(int i=0;i<list.size()&&i<30;i++){
+   for(int i=0;i<list.length()&&i<30;i++){
     JSONObject c2=list.optJSONObject(i);
     if(c2==null)continue;
     String id=c2.optString("conversation_id",c2.optString("id",""));

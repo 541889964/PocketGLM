@@ -45,6 +45,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends Activity{
  public static Context CTX;
+  static String jjson(Object t,Object x){try{return new JSONObject().put("t",String.valueOf(t)).put("x",String.valueOf(x)).toString();}catch(Exception e){return "{}";}}
  static WebView wv;
  @Override protected void onCreate(Bundle b){
   super.onCreate(b);
@@ -96,7 +97,7 @@ public class MainActivity extends Activity{
       String sys=com.glm.pocket.agent.SelfModel.build("对话",net);
       JSONObject pl=GlmClient.payload(sys+"\n\n# 用户\n"+text,conv,net,"deep_thinking","glm-5.3");
       GlmClient.Result r=GlmClient.stream(pl,(t,x)->push("chunk",
-       new JSONObject().put("t",t).put("x",x).toString()));
+       jjson(t,x)));
       push("meta",new JSONObject().put("model",r.model).put("cid",r.cid)
        .put("think",r.think).put("err",r.err==null?"":r.err).toString());
      }else{

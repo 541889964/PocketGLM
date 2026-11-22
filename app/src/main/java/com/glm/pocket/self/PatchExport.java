@@ -1,29 +1,4 @@
 package com.glm.pocket.self;
-import android.os.*;
-import android.webkit.*;
-import java.util.*;
-import java.io.*;
-import com.glm.pocket.self.*;
-
-import com.glm.pocket.*;
-import com.glm.pocket.agent.*;
-import com.glm.pocket.agent.loader.*;
-import com.glm.pocket.agent.tools.*;
-import com.glm.pocket.net.*;
-import java.text.*;
-import org.json.*;
-import android.app.*;
-import android.content.*;
-import android.database.*;
-import android.net.*;
-import android.provider.*;
-import android.text.*;
-import android.view.*;
-import android.widget.*;
-import android.media.*;
-import android.accessibilityservice.*;
-
-import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,33 +6,31 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/** L3慢通道: 打包Java源码→zip→Download, 用户手动传GitHub云编译 */
 public class PatchExport{
  public static String run(){
   try{
-   File src=new File(Environment.getExternalStoragePublicDirectory(
-    Environment.DIRECTORY_DOWNLOADS),"pocketglm/patch_src");
-   src.mkdirs();
-   File zip=new File(new File(Environment.getExternalStoragePublicDirectory(
-    Environment.DIRECTORY_DOWNLOADS),"pocketglm"),
-    "patch_"+System.currentTimeMillis()+".zip");
-   ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(zip));
-   zipDir(new File(com.glm.pocket.self.PatchExport.class.getProtectionDomain()
-    .getCodeSource()==null?null:null)==null?src:src,src,zos,"");
-   zos.close();
-   return "✓ 补丁包: "+zip.getAbsolutePath()+" (把其中.java改动同步到GitHub→Actions自动出新APK)";
-  }catch(Exception e){return "✗ "+e;}
+   File src=new File("/data/data/com.termux/files/home/pocketglm/app/src/main/java");
+   if(!src.exists())src=new File("/storage/emulated/0/Download/pocketglm/src");
+   if(!src.exists())return "找不到源码目录";
+   File out=new File("/storage/emulated/0/Download/pocketglm_patch_"+System.currentTimeMillis()+".zip");
+   FileOutputStream fo=new FileOutputStream(out);
+   ZipOutputStream zos=new ZipOutputStream(fo);
+   zipDir(src,src,zos,"");
+   zos.close();fo.close();
+   return "已打包 "+out.getAbsolutePath()+" (推GitHub→Actions自动出APK)";
+  }catch(Exception e){return "E "+e;}
  }
  static void zipDir(File root,File d,ZipOutputStream zos,String prefix) throws Exception{
-  File[]c=d.listFiles();
-  if(c==null)return;
-  for(File f:c){
+  File[] ds=d.listFiles();
+  if(ds==null)return;
+  for(File f:ds){
    if(f.isDirectory()){zipDir(root,f,zos,prefix+f.getName()+"/");continue;}
    zos.putNextEntry(new ZipEntry(prefix+f.getName()));
-   FileInputStream is=new FileInputStream(f);
-   byte[]b=new byte[8192];int n;
-   while((n=is.read(b))>0)zos.write(b,0,n);
-   is.close();zos.closeEntry();
+   FileInputStream fi=new FileInputStream(f);
+   byte[] b=new byte[4096];int n;
+   while((n=fi.read(b))>0)zos.write(b,0,n);
+   fi.close();
+   zos.closeEntry();
   }
  }
 }
