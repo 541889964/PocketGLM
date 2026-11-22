@@ -66,7 +66,7 @@ public class TermuxPython{
    br.close();
    String o=sb.toString().trim();
    return o.length()>1500?o.substring(0,1500):(o.isEmpty()?"(无输出)":o);
-  }catch(java.util.concurrent.TimeoutException e){return "⚠ 超时";}
+  }
   catch(Exception e){return "✗ "+e;}
  }
 }
