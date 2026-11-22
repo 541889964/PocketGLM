@@ -44,8 +44,7 @@ public class ApprovalGate{
   if("off".equals(m))return false;
   try{
    verdict=false;latch=new CountDownLatch(1);
-   com.glm.pocket.MainActivity.self().post(()->com.glm.pocket.MainActivity.self()
-    .evaluateJavascript("window.__approve('"+desc.replace("'","\\'")+"')",null));
+   com.glm.pocket.MainActivity.self().post(()->android.widget.Toast.makeText(com.glm.pocket.MainActivity.CTX,"[需审批] "+desc,android.widget.Toast.LENGTH_LONG).show());
    latch.await(90,TimeUnit.SECONDS);
    return verdict;
   }catch(Exception e){return false;}

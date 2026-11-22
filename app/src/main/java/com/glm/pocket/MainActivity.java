@@ -255,7 +255,7 @@ public class MainActivity extends Activity{
   try{
    Class<?> G=Class.forName("com.glm.pocket.net.GlmClient");
    Object pl=null;String sig="none";
-   String[] sv={q,conv,model,mode};
+   String[] sv={q,conv,mode,model};
    for(Method m:G.getDeclaredMethods()){
     if(!Modifier.isStatic(m.getModifiers()))continue;
     String n=m.getName();if(!n.equals("payload")&&!n.equals("build"))continue;
