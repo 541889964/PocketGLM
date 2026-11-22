@@ -62,6 +62,14 @@ public class ToolRegistry{
   put(tool("rollback","回滚文件到备份","{\"backup\":\"<备份路径>\",\"dest\":\"<目标>\"}",true,a->
    com.glm.pocket.self.SelfModifier.rollback(a.optString("backup"),a.optString("dest"))));
   put(tool("export_patch","导出Java补丁包zip→Download(给云编译)","{}",false,a->PatchExport.run()));
+  put(tool("token_status","查看智谱凭据状态(有效期/健康/root)","{}",false,a->com.glm.pocket.net.TokenManager.status()));
+  put(tool("token_grab","root从官方App(com.zhipuai.qingyan)重抓atoken,逐个真验后生效","{}",true,a->com.glm.pocket.net.TokenManager.grab()));
+  put(tool("env_check","检查Termux本地环境(python/pip/node/git)","{}",false,a->com.glm.pocket.agent.tools.TermuxEnv.check()));
+  put(tool("env_install","AI自动补环境:清华源+批量安装,速度优先","{\"what\":\"python|node|git|all\"}",true,a->com.glm.pocket.agent.tools.EnvDoctor.install(a.optString("what","all"))));
+  put(tool("install_apk","安装APK(root pm install)","{\"path\":\"/storage/emulated/0/Download/pocketglm/apk/x.apk\"}",true,a->com.glm.pocket.self.CloudBuilder.installApk(a.optString("path"))));
+  put(tool("github_set","App内配置GitHub凭据(用户名+PAT,优先于MT2)","{\"user\":\"xxx\",\"token\":\"ghp_xxx\"}",true,a->com.glm.pocket.net.GitHub.set(a.optString("user"),a.optString("token"))));
+  put(tool("github_status","查看GitHub凭据与仓库状态","{}",false,a->com.glm.pocket.net.GitHub.status()));
+  put(tool("cloud_build","推送→监控Actions→APK自动下载回手机","{}",true,a->com.glm.pocket.self.CloudBuilder.build()));
  }
  interface Fn{String go(org.json.JSONObject a) throws Exception;}
  static void put(Tool t){reg.put(t.name(),t);}

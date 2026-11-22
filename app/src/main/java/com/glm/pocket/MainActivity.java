@@ -97,4 +97,19 @@ public class MainActivity extends Activity{
    ApprovalGate.resolve("true".equals(ok));
   }
  }
+ public static void selfPush(String type,String data){
+  try{
+   String js="window.__push&&window.__push("+new org.json.JSONObject().put("type",type).put("data",data==null?"":data).toString()+")";
+   WebView v=wv;
+   if(v!=null)v.post(()->v.evaluateJavascript(js,null));
+  }catch(Exception ignore){}
+ }
+ @JavascriptInterface public void tokenStatus(){new Thread(()->selfPush("token",com.glm.pocket.net.TokenManager.status())).start();}
+ @JavascriptInterface public void tokenGrab(){new Thread(()->selfPush("token",com.glm.pocket.net.TokenManager.grab())).start();}
+ @JavascriptInterface public void envCheck(){new Thread(()->selfPush("env",com.glm.pocket.agent.tools.TermuxEnv.check())).start();}
+ @JavascriptInterface public void envInstall(final String w){new Thread(()->selfPush("env",com.glm.pocket.agent.tools.EnvDoctor.install(w))).start();}
+ @JavascriptInterface public void cloudBuild(){new Thread(()->selfPush("build",com.glm.pocket.self.CloudBuilder.build())).start();}
+ @JavascriptInterface public void installApk(final String p){new Thread(()->selfPush("build",com.glm.pocket.self.CloudBuilder.installApk(p))).start();}
+ @JavascriptInterface public void githubSet(final String u,final String t){new Thread(()->selfPush("gh",com.glm.pocket.net.GitHub.set(u,t))).start();}
+ @JavascriptInterface public void githubStatus(){new Thread(()->selfPush("gh",com.glm.pocket.net.GitHub.status())).start();}
 }

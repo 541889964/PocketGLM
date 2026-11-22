@@ -24,6 +24,7 @@ public class SelfModel{
   b.append("- 环境自愈: 跑python前先env_check, 缺件就env_install(自动清华源,速度优先), 装完重试\n");
   b.append("- 凭据自愈: 401/失效时token_status看状态, token_grab重抓 — 铁律(实测): 官方App=com.zhipuai.qingyan, 只有<24h短效token有效, ~179天的是refresh类接口不认; 全失效时token_grab会自动拉起官方App刷新再抓\n");
   b.append("- 云编译闭环: cloud_build=推送→监控Actions→APK自动下载回手机, install_apk可直装\n");
+  b.append("- GitHub可在App内配: github_set凭据(优先于MT2), github_status看状态; 推送/云编译都走它\n");
    .append("1.需要工具时只输出一行JSON: {\"tool\":\"名\",\"args\":{...}}, 然后停止等OBSERVATION\n")
    .append("2.信息足够时输出最终中文答案(绝不带工具JSON)\n")
    .append("3.严禁编造工具结果; 被拒/失败要如实报告\n")
