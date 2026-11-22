@@ -1,4 +1,9 @@
 package com.glm.pocket.agent.loader;
+import android.webkit.*;
+import org.json.*;
+import java.util.*;
+import java.io.*;
+import com.glm.pocket.agent.loader.*;
 
 import com.glm.pocket.*;
 import com.glm.pocket.agent.*;
@@ -38,7 +43,7 @@ public class PluginLoader{
    android.os.Environment.DIRECTORY_DOWNLOADS),"pocketglm/plugins");
  }
  /** 启动/安装后扫描, 免重启热注册 */
- public static String scan(){
+ public static int scan(){
   loaded.clear();
   File[] ds=root().listFiles();
   int n=0;
@@ -101,7 +106,7 @@ public class PluginLoader{
    i.putExtra("com.termux.RUN_COMMAND_ARGUMENTS",new String[]{"-c",
     "cat '"+in.getAbsolutePath()+"' | python3 '"+new File(p.dir,p.entry).getAbsolutePath()
     +"' > '"+out.getAbsolutePath()+"' 2>&1"});
-   com.glm.pocket.MainActivity.self().startService(i);
+   com.glm.pocket.MainActivity.CTX.startService(i);
    long last=-1;
    for(int s=0;s<30;s++){
     Thread.sleep(1000);

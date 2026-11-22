@@ -1,4 +1,12 @@
 package com.glm.pocket.self;
+import android.os.*;
+import android.webkit.*;
+import org.json.*;
+import java.util.*;
+import java.io.*;
+import com.glm.pocket.self.*;
+import com.glm.pocket.net.*;
+import com.glm.pocket.*;
 
 import com.glm.pocket.agent.*;
 import com.glm.pocket.agent.loader.*;
