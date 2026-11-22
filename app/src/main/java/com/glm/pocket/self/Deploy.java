@@ -1,5 +1,22 @@
 package com.glm.pocket.self;
 
+import com.glm.pocket.agent.loader.*;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import org.json.*;
+import android.app.*;
+import android.content.*;
+import android.database.*;
+import android.net.*;
+import android.os.*;
+import android.provider.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import android.media.*;
+import android.accessibilityservice.*;
+
 import com.glm.pocket.agent.tools.TermuxEnv;
 import com.glm.pocket.net.GitHub;
 

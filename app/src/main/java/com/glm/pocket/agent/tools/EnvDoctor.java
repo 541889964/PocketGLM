@@ -1,5 +1,26 @@
 package com.glm.pocket.agent.tools;
 
+import com.glm.pocket.*;
+import com.glm.pocket.agent.*;
+import com.glm.pocket.agent.loader.*;
+import com.glm.pocket.net.*;
+import com.glm.pocket.self.*;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import org.json.*;
+import android.app.*;
+import android.content.*;
+import android.database.*;
+import android.net.*;
+import android.os.*;
+import android.provider.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import android.media.*;
+import android.accessibilityservice.*;
+
 /** 补环境提速: 清华源 / 跳过已装 / 批量一个事务 / pip国内源 / root装完把属主修回Termux用户 */
 public class EnvDoctor{
  public static String install(String what){
